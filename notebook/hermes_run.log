@@ -1,0 +1,49 @@
+Query: Создай в текущей папке файл solution.ipynb — воспроизводимый 
+Jupyter-ноутбук на Python
+для ML-задачи (AML-хакатон, предсказание вероятности эскалации сигнала).
+
+Структура ноутбука строго такая, ячейки по порядку:
+1. Markdown: заголовок "AML Alert Escalation Prediction" и короткое описание 
+задачи.
+2. Код: импорты (pandas, numpy, lightgbm, 
+sklearn.model_selection.StratifiedKFold,
+   sklearn.metrics.roc_auc_score).
+3. Код: загрузка train_features.parquet и test_features.parquet из папки ../
+   (пути: "../train_features.parquet", "../test_features.parquet").
+4. Markdown: "## EDA" — короткий заголовок.
+5. Код: базовый EDA — df.shape, df.describe(), баланс классов 
+value_counts(normalize=True)
+   на колонке eskalatsiya, и один график matplotlib: распределение amt_mean по 
+классам
+   (два histplot/hist наложенных, разные цвета, легенда).
+6. Markdown: "## Обучение модели".
+7. Код: список feature_cols = все колонки кроме signal_id и eskalatsiya.
+   StratifiedKFold(n_splits=5, shuffle=True, random_state=42).
+   Цикл по фолдам: обучить LGBMClassifier(random_state=42), predict_proba на 
+валидации,
+   посчитать roc_auc_score, напечатать AUC по каждому фолду и среднее.
+   Сохранить oof-предсказания (out-of-fold) в массив.
+8. Код: обучить финальную модель на всём train, получить predict_proba на 
+test_features.
+9. Код: собрать DataFrame с колонками signal_id и ehtimollik (предсказанная 
+вероятность
+   класса 1), проверить что нет пропусков и дублей signal_id, сохранить в
+   "../team_E418F3DF.csv" БЕЗ индекса (index=False).
+10. Markdown: "## Итог" — вывести финальный средний AUC по кросс-валидации.
+
+Требования:
+- Код должен быть рабочим и синтаксически верным Python, не псевдокод.
+- НЕ выполняй ноутбук (нет доступа к данным в этой сессии) — только напиши код в
+ячейках.
+- Используй nbformat для создания .ipynb программно, либо напиши валидный JSON 
+формата
+  Jupyter notebook v4 вручную — главное чтобы файл открывался в Jupyter/VS Code.
+- Никаких лишних библиотек сверх перечисленных.
+- В конце выведи в stdout: "notebook created: <путь до файла>" и покажи первые 
+50 строк
+  содержимого файла для проверки.
+
+No access token found for Nous Portal login. Run `hermes model` to 
+re-authenticate.
+
+Goodbye! ⚕
