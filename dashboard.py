@@ -15,6 +15,7 @@ st.set_page_config(page_title="AML Alert Escalation — EDA", layout="wide")
 D = Path(__file__).parent
 
 st.title("AML Alert Escalation — анализ и модель")
+st.info("Note: The first load may take approximately 30–50 seconds. Please wait.")
 st.caption(
     "Предсказание вероятности эскалации сигнала финансового мониторинга "
     "по агрегированной истории транзакций клиента."

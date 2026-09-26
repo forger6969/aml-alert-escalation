@@ -35,7 +35,7 @@
 ## Как запустить
 
 Данные (`fintech_data`, ~7 млн строк транзакций) в репозиторий не входят — нужно положить их
-в `~/Downloads/fintech_data` или поправить путь `D` в начале `features.py` / первой ячейки ноутбука.
+в `data/` в корне репозитория (рядом с `features.py`).
 
 ```bash
 pip install -r requirements.txt

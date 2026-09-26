@@ -16,7 +16,7 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
-D = Path.home() / "Downloads" / "fintech_data"  # поправь на свой путь к данным
+D = Path(__file__).resolve().parent / "data"  # положи сырые данные в data/ рядом со скриптом
 OUT = Path(__file__).parent
 TXN_TYPES = ["bank_otkazmasi", "karta", "naqd", "xalqaro"]
 RECENT_WINDOWS = [3, 7, 14]

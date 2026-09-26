@@ -11,9 +11,11 @@ from sklearn.metrics import roc_auc_score
 import lightgbm as lgb
 
 D = Path(__file__).parent
+DATA_DIR = D / "data"
 
 train = pd.read_parquet(D / "train_features_v3.parquet")
 test = pd.read_parquet(D / "test_features_v3.parquet")
+test_signals = pd.read_csv(DATA_DIR / "test_signals.csv")
 feature_cols = [c for c in train.columns if c not in ("signal_id", "eskalatsiya")]
 X, y = train[feature_cols], train["eskalatsiya"]
 X_test = test[feature_cols]
@@ -58,6 +60,7 @@ assert submission["signal_id"].duplicated().sum() == 0, "дубли signal_id"
 assert submission["ehtimollik"].between(0, 1).all(), "вероятность вне [0,1]"
 assert submission.isna().sum().sum() == 0, "есть пропуски"
 assert len(submission) == 6000, f"ожидалось 6000, получено {len(submission)}"
+assert set(submission["signal_id"]) == set(test_signals["signal_id"]), "signal_id в submission не совпадают с test_signals.csv"
 assert list(submission.columns) == ["signal_id", "ehtimollik"], "неверные колонки"
 
 submission.to_csv(D / "team_E418F3DF.csv", index=False)
